@@ -22,7 +22,7 @@ df$Date <- as.Date( df$Date, '%d/%m/%Y' );
 
 dfs <- subset( subset( df, 
                            Date <= as.Date('2007-02-02')), 
-                           Date >= as.Date('2007-02-01') );   # TODO: can compound conditon?
+                           Date >= as.Date('2007-02-01') );
 
 dfs$DateTime <- strptime( sprintf("%s %s", dfs$Date, dfs$Time), 
                           format="%Y-%m-%d %H:%M:%S" );
