@@ -8,7 +8,7 @@ library(sqldf)
 
 #
 # Load the original data. Use read.csv2.sql to only load the desired
-# records into memory, thereby reducing memory requirements.
+# records into memory, thereby reducing memory usage.
 #
 
 myFile <- "./household_power_consumption.txt"
@@ -19,7 +19,8 @@ df <- read.csv2.sql(myFile,mySql)
 #
 # Extract and massage the desired subset ... this was necessary
 # when using read.csv to read in the entire data set, harmless
-# to leave this in no that we're using read.csv2.sql
+# to leave this in now that we're using read.csv2.sql (overhead
+# is negligible).
 #
 
 df$Date <- as.Date( df$Date, '%d/%m/%Y' );
@@ -32,7 +33,7 @@ dfs$Global_active_power <- as.numeric( dfs$Global_active_power );
 
 
 #
-# Plot to png
+# Plot to png.
 #
 
 png( file="plot1.png", height=480, width=480, units="px" );
