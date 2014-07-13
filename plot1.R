@@ -3,19 +3,23 @@
 # Individual Household Electric Power Consumption data set
 #-----------------------------------------------------------------
 
-
-#
-# load the original data
-#
-
-df <- read.csv( 'household_power_consumption.txt', sep=';', 
-   colClasses=c('character', 'character', 'character', 'character', 
-                'character', 'character', 'character', 'character', 
-                'character') );
+library(sqldf)
 
 
 #
-# extract and massage the desired subset
+# Load the original data. Use read.csv2.sql to only load the desired
+# records into memory, thereby reducing memory requirements.
+#
+
+myFile <- "./household_power_consumption.txt"
+mySql <- "SELECT * FROM file WHERE Date='1/2/2007' OR Date='2/2/2007'"
+df <- read.csv2.sql(myFile,mySql)
+
+
+#
+# Extract and massage the desired subset ... this was necessary
+# when using read.csv to read in the entire data set, harmless
+# to leave this in no that we're using read.csv2.sql
 #
 
 df$Date <- as.Date( df$Date, '%d/%m/%Y' );
@@ -28,7 +32,7 @@ dfs$Global_active_power <- as.numeric( dfs$Global_active_power );
 
 
 #
-# plot to png
+# Plot to png
 #
 
 png( file="plot1.png", height=480, width=480, units="px" );
